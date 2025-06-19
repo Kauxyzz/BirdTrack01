@@ -8,7 +8,6 @@ import {
   updateDoc,
 } from "firebase/firestore";
 
-// ---------- TIPAGENS ----------
 export interface Documento {
   id?: string;
   nome: string;
@@ -25,9 +24,7 @@ export interface Monitoramento {
   observacao: string;
 }
 
-// ---------- API ----------
 export const api = {
-  // ---------- DOCUMENTOS ----------
   async getDocumentos(): Promise<Documento[]> {
     const querySnapshot = await getDocs(collection(db, "documentos"));
     return querySnapshot.docs.map((docItem) => ({
@@ -49,7 +46,6 @@ export const api = {
     await updateDoc(doc(db, "documentos", id), dados);
   },
 
-  // ---------- MONITORAMENTO DE PRODUÇÃO ----------
   async getMonitoramentos(): Promise<Monitoramento[]> {
     const querySnapshot = await getDocs(collection(db, "monitoramento"));
     return querySnapshot.docs.map((docItem) => ({

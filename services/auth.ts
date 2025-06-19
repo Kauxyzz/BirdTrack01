@@ -1,4 +1,3 @@
-// services/auth.ts
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -12,25 +11,21 @@ import {
 
 import { auth } from '@/firebase/config';
 
-// Cadastro de usuário
 export const register = async (name: string, email: string, password: string) => {
   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
   await updateProfile(userCredential.user, { displayName: name });
   return userCredential.user;
 };
 
-// Login
 export const login = async (email: string, password: string) => {
   const userCredential = await signInWithEmailAndPassword(auth, email, password);
   return userCredential.user;
 };
 
-// Logout
 export const logout = async () => {
   await signOut(auth);
 };
 
-// Atualizar perfil do usuário logado
 export const updateUserProfile = async ({
   name,
   email,
@@ -48,14 +43,11 @@ export const updateUserProfile = async ({
   if (password) await updatePassword(user, password);
 };
 
-// Excluir conta do usuário logado
 export const deleteUserAccount = async () => {
   const user = auth.currentUser;
   if (!user) throw new Error('Usuário não autenticado');
   await deleteUser(user);
 };
-
-// Retorna o usuário atual autenticado
 export const getCurrentUser = (): User | null => {
   return auth.currentUser;
 };
